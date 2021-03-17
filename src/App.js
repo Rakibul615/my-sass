@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import { createContext, useState } from 'react';
 import './App.css';
+import Header from './Components/Header/Header';
+import Home from './Components/Home/Home';
+import Shipment from './Components/Shipment/Shipment';
+
+export const CategoryContext=createContext();
 
 function App() {
+  const[count,setCount]=useState(0);
+  const handleIns=()=>{
+    const newCount=count+1;
+     setCount(newCount);
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CategoryContext.Provider value={count}>
+     <Home count={count}></Home>
+     <Header count={count} handleIns={handleIns}></Header>
+     <Shipment></Shipment>
+    </CategoryContext.Provider>
   );
 }
 
